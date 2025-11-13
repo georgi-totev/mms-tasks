@@ -1,0 +1,35 @@
+1) Single executable from 4 .c files
+gcc factorial.c print.c counter.c main.c -o app
+
+----------------------------------------------------------------
+
+2) Via a static library
+# Compile the library objects
+gcc -c factorial.c print.c counter.c
+
+# Create the static archive
+ar rcs libmylib.a factorial.o print.o counter.o
+
+# Build the program that uses it
+gcc -I. main.c -L. -lmylib -o app_static
+
+----------------------------------------------------------------
+
+3) Via a dynamic library (.so)
+# Compile PIC objects for a shared library
+gcc -fPIC -c factorial.c print.c counter.c
+
+# Create the shared library
+gcc -shared -o libmylib.so factorial.o print.o counter.o
+
+# Link the program against the shared library
+gcc -I. main.c -L. -lmylib -Wl,-rpath,'$ORIGIN' -o app_shared
+
+----------------------------------------------------------------
+
+-I. is ONLY needed when the header files are NOT in the same dir a the source files
+-L. is needed when the libmylib.a/.so is in the current dir, which it will most times be in
+
+----------------------------------------------------------------
+compile in debug mode:
+gcc -g -DDEBUG (files)
