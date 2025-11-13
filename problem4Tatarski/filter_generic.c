@@ -15,3 +15,4 @@ size_t filter_generic(const void *src, size_t len, size_t elem_size, void *dest,
     }
     return j;
 }
+
