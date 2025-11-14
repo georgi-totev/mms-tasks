@@ -7,6 +7,7 @@ void contact_list_init(Contact_List* list){
 }
 
 void contact_list_add(Contact_List* list, Contact c){
-    
+    if (list->size == list->capacity) {
+        size_t new_capacity = (list->capacity == 0) ? 4 : list->capacity * 2;
 
 }
